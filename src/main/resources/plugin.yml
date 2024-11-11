@@ -1,0 +1,17 @@
+main: su.nightexpress.economybridge.BridgePlugin
+name: EconomyBridge
+description: Unified library to handle currency plugins easy.
+version: '${project.version}'
+author: NightExpress
+depend:
+  - nightcore
+softdepend:
+  - BeastTokens
+  - PlayerPoints
+  - CoinsEngine
+  - GemsEconomy
+  - UltraEconomy
+  - VotingPlugin
+  - EliteMobs
+  - Vault
+api-version: 1.19
