@@ -12,8 +12,6 @@ import java.util.UUID;
 
 public class PlayerPointsCurrency extends AbstractCurrency {
 
-    public static final String ID = "playerpoints";
-
     private final PlayerPointsAPI api;
 
     public PlayerPointsCurrency(@NotNull String id) {

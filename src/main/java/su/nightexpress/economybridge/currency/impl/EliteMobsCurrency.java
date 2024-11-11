@@ -11,8 +11,6 @@ import java.util.UUID;
 
 public class EliteMobsCurrency extends AbstractCurrency {
 
-    public static final String ID = "elitemobs";
-
     public EliteMobsCurrency(@NotNull String id) {
         super(id);
     }

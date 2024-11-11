@@ -6,12 +6,11 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import su.nightexpress.economybridge.Placeholders;
 import su.nightexpress.economybridge.api.Currency;
+import su.nightexpress.economybridge.currency.CurrencyId;
 
 import java.util.UUID;
 
 public class DummyCurrency implements Currency {
-
-    public static final String ID = "dummy";
 
     @Override
     public boolean canHandleDecimals() {
@@ -26,13 +25,13 @@ public class DummyCurrency implements Currency {
     @Override
     @NotNull
     public String getInternalId() {
-        return ID;
+        return CurrencyId.DUMMY;
     }
 
     @Override
     @NotNull
     public String getOriginalId() {
-        return ID;
+        return CurrencyId.DUMMY;
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import su.nightexpress.coinsengine.api.CoinsEngineAPI;
 import su.nightexpress.economybridge.api.Currency;
+import su.nightexpress.economybridge.currency.CurrencyId;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,9 +14,11 @@ import java.util.function.UnaryOperator;
 
 public class CoinsEngineCurrency implements Currency {
 
+    private final String id;
     private final su.nightexpress.coinsengine.api.currency.Currency currency;
 
     public CoinsEngineCurrency(@NotNull su.nightexpress.coinsengine.api.currency.Currency currency) {
+        this.id = CurrencyId.forCoinsEngine(currency.getId());
         this.currency = currency;
     }
 
@@ -61,7 +64,7 @@ public class CoinsEngineCurrency implements Currency {
     @Override
     @NotNull
     public String getInternalId() {
-        return "coinsengine_" + this.currency.getId();
+        return this.id;
     }
 
     @Override

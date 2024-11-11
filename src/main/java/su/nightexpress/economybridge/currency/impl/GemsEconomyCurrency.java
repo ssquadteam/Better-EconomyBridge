@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import su.nightexpress.economybridge.currency.CurrencyId;
 import su.nightexpress.economybridge.currency.type.AbstractCurrency;
 
 import java.util.HashSet;
@@ -26,7 +27,7 @@ public class GemsEconomyCurrency extends AbstractCurrency {
         Set<GemsEconomyCurrency> currencies = new HashSet<>();
 
         for (me.xanium.gemseconomy.currency.Currency currency : GemsEconomy.getInstance().getCurrencyManager().getCurrencies()) {
-            currencies.add(new GemsEconomyCurrency("gemseconomy_" + currency.getSingular(), currency));
+            currencies.add(new GemsEconomyCurrency(CurrencyId.forGemsEconomy(currency.getSingular()), currency));
         }
 
         return currencies;

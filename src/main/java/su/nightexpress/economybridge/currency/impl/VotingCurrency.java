@@ -12,8 +12,6 @@ import java.util.UUID;
 
 public class VotingCurrency extends AbstractCurrency {
 
-    public static final String ID = "votingplugin";
-
     public VotingCurrency(@NotNull String id) {
         super(id);
     }

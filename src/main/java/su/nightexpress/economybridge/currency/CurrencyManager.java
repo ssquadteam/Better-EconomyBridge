@@ -71,16 +71,16 @@ public class CurrencyManager extends AbstractManager<BridgePlugin> {
 
     public void loadCurrencies() {
         if (Plugins.hasVault() && VaultHook.hasEconomy()) {
-            this.loadCurrency(VaultEconomyCurrency.ID, VaultEconomyCurrency::new);
+            this.loadCurrency(CurrencyId.VAULT, VaultEconomyCurrency::new);
         }
 
-        this.loadCurrency(PlayerXPCurrency.ID, PlayerXPCurrency::new);
-        this.loadCurrency(PlayerLevelsCurrency.ID, PlayerLevelsCurrency::new);
+        this.loadCurrency(CurrencyId.XP_POINTS, XPPointsCurrency::new);
+        this.loadCurrency(CurrencyId.XP_LEVELS, XPLevelsCurrency::new);
 
-        this.loadCurrency(CurrencyPlugins.PLAYER_POINTS, PlayerPointsCurrency.ID, PlayerPointsCurrency::new);
-        this.loadCurrency(CurrencyPlugins.BEAST_TOKENS, BeastTokensCurrency.ID, BeastTokensCurrency::new);
-        this.loadCurrency(CurrencyPlugins.VOTING_PLUGIN, VotingCurrency.ID, VotingCurrency::new);
-        this.loadCurrency(CurrencyPlugins.ELITEMOBS, EliteMobsCurrency.ID, EliteMobsCurrency::new);
+        this.loadCurrency(CurrencyPlugins.PLAYER_POINTS, CurrencyId.PLAYER_POINTS, PlayerPointsCurrency::new);
+        this.loadCurrency(CurrencyPlugins.BEAST_TOKENS, CurrencyId.BEAST_TOKENS, BeastTokensCurrency::new);
+        this.loadCurrency(CurrencyPlugins.VOTING_PLUGIN, CurrencyId.VOTING_PLUGIN, VotingCurrency::new);
+        this.loadCurrency(CurrencyPlugins.ELITEMOBS, CurrencyId.ELITE_MOBS, EliteMobsCurrency::new);
 
         if (Plugins.isInstalled(CurrencyPlugins.COINS_ENGINE)) {
             CoinsEngineCurrency.getCurrencies().forEach(this::registerCurrency);

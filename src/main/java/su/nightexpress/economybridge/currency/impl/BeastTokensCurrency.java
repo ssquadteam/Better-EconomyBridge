@@ -12,8 +12,6 @@ import java.util.UUID;
 
 public class BeastTokensCurrency extends AbstractCurrency {
 
-    public static final String ID = "beasttokens";
-
     public BeastTokensCurrency(@NotNull String id) {
         super(id);
     }

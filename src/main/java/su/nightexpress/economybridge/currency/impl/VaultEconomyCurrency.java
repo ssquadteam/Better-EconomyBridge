@@ -14,8 +14,6 @@ import java.util.UUID;
 
 public class VaultEconomyCurrency extends AbstractCurrency {
 
-    public static final String ID = "vault";
-
     public VaultEconomyCurrency(@NotNull String id) {
         super(id);
     }

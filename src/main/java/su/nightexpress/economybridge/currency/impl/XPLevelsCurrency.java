@@ -8,11 +8,9 @@ import su.nightexpress.economybridge.currency.type.AbstractCurrency;
 
 import java.util.UUID;
 
-public class PlayerLevelsCurrency extends AbstractCurrency {
+public class XPLevelsCurrency extends AbstractCurrency {
 
-    public static final String ID = "exp";
-
-    public PlayerLevelsCurrency(@NotNull String id) {
+    public XPLevelsCurrency(@NotNull String id) {
         super(id);
     }
 

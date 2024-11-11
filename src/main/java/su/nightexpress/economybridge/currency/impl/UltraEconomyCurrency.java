@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import su.nightexpress.economybridge.api.Currency;
+import su.nightexpress.economybridge.currency.CurrencyId;
 
 import java.util.Optional;
 import java.util.Set;
@@ -15,9 +16,11 @@ import java.util.stream.Collectors;
 
 public class UltraEconomyCurrency implements Currency {
 
+    private final String id;
     private final me.TechsCode.UltraEconomy.objects.Currency currency;
 
     public UltraEconomyCurrency(me.TechsCode.UltraEconomy.objects.Currency currency) {
+        this.id = CurrencyId.forUltraEconomy(currency.getName());
         this.currency = currency;
     }
 
@@ -57,7 +60,7 @@ public class UltraEconomyCurrency implements Currency {
     @Override
     @NotNull
     public String getInternalId() {
-        return ("ultraeconomy_" + this.currency.getName()).toLowerCase();
+        return this.id;
     }
 
     @Override
