@@ -49,6 +49,7 @@ The most useful ones are **currencies.yml** and **items.yml** - this is where yo
 
 ### Developers
 For developers there is `EconomyBridge` class that provides all utility methods to work with currencies.
+
 You can obtain currency IDs from the `CurrencyId` class.
 
 ```java
