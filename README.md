@@ -1,6 +1,8 @@
 # Overview
 **EconomyBridge** is a simple, lightweight unified library plugin used to interact with multiple Bukkit economy/currency plugins with only a few lines of code.
 
+You need [nightcore](https://github.com/nulli0n/nightcore-spigot/releases) **v2.7.1**+ and **Java 21**+ to run EconomyBridge.
+
 ## Features
 - Easily **deposit**, **withdraw** and **check balance** of the currency.
 - Easily **format** numeric values with the currency format.
