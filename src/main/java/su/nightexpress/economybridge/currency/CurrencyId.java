@@ -39,6 +39,8 @@ public class CurrencyId {
         if (oldName.equalsIgnoreCase("exp")) return XP_LEVELS;
         if (oldName.equalsIgnoreCase("level")) return XP_LEVELS;
         if (oldName.equalsIgnoreCase("xp")) return XP_POINTS;
+        if (oldName.equalsIgnoreCase("money")) return VAULT;
+        if (oldName.equalsIgnoreCase("economy")) return VAULT;
 
         return oldName;
     }

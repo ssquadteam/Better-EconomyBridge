@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import su.nightexpress.economybridge.api.Currency;
+import su.nightexpress.economybridge.currency.CurrencyId;
 import su.nightexpress.economybridge.currency.CurrencyManager;
 import su.nightexpress.economybridge.currency.impl.DummyCurrency;
 
@@ -32,6 +33,10 @@ public class EconomyBridge {
         return getCurrency(id) != null;
     }
 
+    public static boolean hasEconomy() {
+        return hasCurrency(CurrencyId.VAULT);
+    }
+
     public static boolean handle(@NotNull String id, @NotNull Consumer<Currency> consumer) {
         Currency currency = getCurrency(id);
         if (currency == null) return false;
@@ -58,6 +63,14 @@ public class EconomyBridge {
         return currency == null ? 0D : currency.getBalance(playerId);
     }
 
+    public static double getEconomyBalance(@NotNull Player player) {
+        return getEconomyBalance(player.getUniqueId());
+    }
+
+    public static double getEconomyBalance(@NotNull UUID playerId) {
+        return getBalance(playerId, CurrencyId.VAULT);
+    }
+
     public static boolean deposit(@NotNull Player player, @NotNull String id, double amount) {
         return handle(id, currency -> currency.give(player, amount));
     }
@@ -66,12 +79,28 @@ public class EconomyBridge {
         return handle(id, currency -> currency.give(playerId, amount));
     }
 
+    public static boolean depositEconomy(@NotNull Player player, double amount) {
+        return depositEconomy(player.getUniqueId(), amount);
+    }
+
+    public static boolean depositEconomy(@NotNull UUID playerId, double amount) {
+        return deposit(playerId, CurrencyId.VAULT, amount);
+    }
+
     public static boolean withdraw(@NotNull Player player, @NotNull String id, double amount) {
         return handle(id, currency -> currency.take(player, amount));
     }
 
     public static boolean withdraw(@NotNull UUID playerId, @NotNull String id, double amount) {
         return handle(id, currency -> currency.take(playerId, amount));
+    }
+
+    public static boolean withdrawEconomy(@NotNull Player player, double amount) {
+        return withdrawEconomy(player.getUniqueId(), amount);
+    }
+
+    public static boolean withdrawEconomy(@NotNull UUID playerId, double amount) {
+        return withdraw(playerId, CurrencyId.VAULT, amount);
     }
 
 

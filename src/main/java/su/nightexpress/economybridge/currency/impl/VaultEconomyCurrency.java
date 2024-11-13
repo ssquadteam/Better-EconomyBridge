@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import su.nightexpress.economybridge.Placeholders;
 import su.nightexpress.economybridge.currency.type.AbstractCurrency;
-import su.nightexpress.nightcore.integration.VaultHook;
+import su.nightexpress.economybridge.hook.VaultHook;
 
 import java.util.UUID;
 

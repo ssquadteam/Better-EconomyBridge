@@ -2,14 +2,16 @@ package su.nightexpress.economybridge.currency;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import su.nightexpress.economybridge.BridgePlugin;
 import su.nightexpress.economybridge.api.Currency;
 import su.nightexpress.economybridge.currency.impl.*;
+import su.nightexpress.economybridge.currency.listener.CurrencyListener;
 import su.nightexpress.economybridge.currency.type.AbstractCurrency;
+import su.nightexpress.economybridge.hook.VaultHook;
 import su.nightexpress.nightcore.config.FileConfig;
-import su.nightexpress.nightcore.integration.VaultHook;
 import su.nightexpress.nightcore.manager.AbstractManager;
 import su.nightexpress.nightcore.util.ItemNbt;
 import su.nightexpress.nightcore.util.Plugins;
@@ -28,6 +30,7 @@ public class CurrencyManager extends AbstractManager<BridgePlugin> {
     public static final DummyCurrency DUMMY_CURRENCY = new DummyCurrency();
 
     private final Map<String, Currency> currencyMap;
+    private final Map<String, Runnable> pluginProviders;
 
     private FileConfig currencyConfig;
     private FileConfig itemsConfig;
@@ -35,22 +38,7 @@ public class CurrencyManager extends AbstractManager<BridgePlugin> {
     public CurrencyManager(@NotNull BridgePlugin plugin) {
         super(plugin);
         this.currencyMap = new HashMap<>();
-    }
-
-    @Override
-    protected void onLoad() {
-        this.loadCurrencies();
-        this.loadItems();
-
-        this.currencyConfig.saveChanges();
-        this.itemsConfig.saveChanges();
-
-        this.plugin.info("Loaded " + this.currencyMap.size() + " currencies.");
-    }
-
-    @Override
-    protected void onShutdown() {
-        this.currencyMap.clear();
+        this.pluginProviders = new HashMap<>();
     }
 
     @NotNull
@@ -69,33 +57,85 @@ public class CurrencyManager extends AbstractManager<BridgePlugin> {
         return this.currencyConfig;
     }
 
-    public void loadCurrencies() {
-        if (Plugins.hasVault() && VaultHook.hasEconomy()) {
-            this.loadCurrency(CurrencyId.VAULT, VaultEconomyCurrency::new);
-        }
+    @Override
+    protected void onLoad() {
+        this.loadHooks();
+        this.loadProviders();
+        this.loadBuiltInCurrencies();
+        this.loadItemCurrencies();
 
-        this.loadCurrency(CurrencyId.XP_POINTS, XPPointsCurrency::new);
-        this.loadCurrency(CurrencyId.XP_LEVELS, XPLevelsCurrency::new);
+        this.currencyConfig.saveChanges();
+        this.itemsConfig.saveChanges();
 
-        this.loadCurrency(CurrencyPlugins.PLAYER_POINTS, CurrencyId.PLAYER_POINTS, PlayerPointsCurrency::new);
-        this.loadCurrency(CurrencyPlugins.BEAST_TOKENS, CurrencyId.BEAST_TOKENS, BeastTokensCurrency::new);
-        this.loadCurrency(CurrencyPlugins.VOTING_PLUGIN, CurrencyId.VOTING_PLUGIN, VotingCurrency::new);
-        this.loadCurrency(CurrencyPlugins.ELITEMOBS, CurrencyId.ELITE_MOBS, EliteMobsCurrency::new);
+        this.addListener(new CurrencyListener(this.plugin, this));
 
-        if (Plugins.isInstalled(CurrencyPlugins.COINS_ENGINE)) {
-            CoinsEngineCurrency.getCurrencies().forEach(this::registerCurrency);
-        }
+        // Clean up when all plugins are loaded.
+        this.plugin.runTask(task -> this.pluginProviders.clear());
+    }
 
-        if (Plugins.isInstalled(CurrencyPlugins.ULTRA_ECONOMY)) {
-            UltraEconomyCurrency.getCurrencies().forEach(this::registerCurrency);
-        }
+    @Override
+    protected void onShutdown() {
+        this.currencyMap.clear();
+        this.pluginProviders.clear();
 
-        if (Plugins.isInstalled(CurrencyPlugins.GEMS_ECONOMY)) {
-            GemsEconomyCurrency.getCurrencies().forEach(this::loadCurrency);
+        if (Plugins.hasVault()) {
+            VaultHook.shutdown();
         }
     }
 
-    public void loadItems() {
+    public void handlePluginLoad(@NotNull String pluginName) {
+        var provider = this.pluginProviders.get(pluginName);
+        if (provider != null) {
+            plugin.info(pluginName + " detected! Loading currency...");
+            provider.run();
+        }
+    }
+
+    private void loadHooks() {
+        if (Plugins.hasVault()) {
+            VaultHook.setupEconomy();
+        }
+    }
+
+    private void loadProviders() {
+        this.pluginProviders.put(CurrencyPlugins.PLAYER_POINTS, () -> this.loadCurrency(CurrencyId.PLAYER_POINTS, PlayerPointsCurrency::new));
+        this.pluginProviders.put(CurrencyPlugins.BEAST_TOKENS, () -> this.loadCurrency(CurrencyId.BEAST_TOKENS, BeastTokensCurrency::new));
+        this.pluginProviders.put(CurrencyPlugins.VOTING_PLUGIN, () -> this.loadCurrency(CurrencyId.VOTING_PLUGIN, VotingCurrency::new));
+        this.pluginProviders.put(CurrencyPlugins.ELITEMOBS, () -> this.loadCurrency(CurrencyId.ELITE_MOBS, EliteMobsCurrency::new));
+
+        this.pluginProviders.put(Plugins.VAULT, () -> {
+            if (VaultHook.hasEconomy()) {
+                this.loadCurrency(CurrencyId.VAULT, VaultEconomyCurrency::new);
+            }
+        });
+
+        this.pluginProviders.put(CurrencyPlugins.COINS_ENGINE, () -> {
+            CoinsEngineCurrency.getCurrencies().forEach(this::registerCurrency);
+        });
+
+        this.pluginProviders.put(CurrencyPlugins.ULTRA_ECONOMY, () -> {
+            UltraEconomyCurrency.getCurrencies().forEach(this::registerCurrency);
+        });
+
+        this.pluginProviders.put(CurrencyPlugins.GEMS_ECONOMY, () -> {
+            GemsEconomyCurrency.getCurrencies().forEach(this::loadCurrency);
+        });
+
+        // Try load any provider(s) of the plugins that are already enabled aka loaded.
+        this.pluginProviders.keySet().forEach(pluginName -> {
+            Plugin currencyPlugin = this.plugin.getPluginManager().getPlugin(pluginName);
+            if (currencyPlugin == null || !currencyPlugin.isEnabled()) return;
+
+            this.handlePluginLoad(pluginName);
+        });
+    }
+
+    public void loadBuiltInCurrencies() {
+        this.loadCurrency(CurrencyId.XP_POINTS, XPPointsCurrency::new);
+        this.loadCurrency(CurrencyId.XP_LEVELS, XPLevelsCurrency::new);
+    }
+
+    public void loadItemCurrencies() {
         FileConfig config = this.getItemsConfig();
 
         if (!config.contains("Items")) {
@@ -147,7 +187,7 @@ public class CurrencyManager extends AbstractManager<BridgePlugin> {
 
     public void registerCurrency(@NotNull Currency currency) {
         this.currencyMap.put(currency.getInternalId(), currency);
-        this.plugin.info("Registered currency: " + currency.getInternalId());
+        this.plugin.info("Currency registered: '" + currency.getInternalId() + "'.");
     }
 
     public boolean hasCurrency() {

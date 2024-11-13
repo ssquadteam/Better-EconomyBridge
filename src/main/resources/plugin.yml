@@ -5,13 +5,5 @@ version: '${project.version}'
 author: NightExpress
 depend:
   - nightcore
-softdepend:
-  - BeastTokens
-  - PlayerPoints
-  - CoinsEngine
-  - GemsEconomy
-  - UltraEconomy
-  - VotingPlugin
-  - EliteMobs
-  - Vault
+load: STARTUP
 api-version: 1.19
