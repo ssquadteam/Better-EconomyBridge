@@ -6,7 +6,7 @@
 
     <groupId>su.nightexpress.economybridge</groupId>
     <artifactId>economy-bridge</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -28,6 +28,11 @@
         <repository>
             <id>maven</id>
             <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
         </repository>
 
         <repository>
@@ -73,6 +78,13 @@
             <groupId>com.github.MilkBowl</groupId>
             <artifactId>VaultAPI</artifactId>
             <version>1.7</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.11.6</version>
             <scope>provided</scope>
         </dependency>
 

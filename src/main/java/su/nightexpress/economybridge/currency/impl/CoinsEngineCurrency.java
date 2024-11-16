@@ -50,6 +50,11 @@ public class CoinsEngineCurrency implements Currency {
     }
 
     @Override
+    public double fineValue(double amount) {
+        return this.currency.fine(amount);
+    }
+
+    @Override
     @NotNull
     public String formatValue(double amount) {
         return this.currency.formatValue(amount);

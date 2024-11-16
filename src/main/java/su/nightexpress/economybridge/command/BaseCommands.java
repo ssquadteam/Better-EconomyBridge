@@ -12,5 +12,7 @@ public class BaseCommands {
         ChainedNode root = plugin.getRootNode();
 
         root.addChildren(ReloadCommand.builder(plugin, Perms.COMMAND_RELOAD));
+
+        // TODO Create, give, take commands
     }
 }

@@ -1,9 +1,12 @@
 package su.nightexpress.economybridge.api;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import su.nightexpress.economybridge.Placeholders;
+import su.nightexpress.economybridge.config.Config;
+import su.nightexpress.economybridge.currency.CurrencyId;
 import su.nightexpress.nightcore.util.NumberUtil;
 
 import java.util.UUID;
@@ -11,9 +14,19 @@ import java.util.function.UnaryOperator;
 
 public interface Currency {
 
+    default boolean isDummy() {
+        return this.getInternalId().equalsIgnoreCase(CurrencyId.DUMMY);
+    }
+
     @NotNull
     default UnaryOperator<String> replacePlaceholders() {
         return Placeholders.forCurrency(this);
+    }
+
+    default double fineValue(double amount) {
+        if (!this.canHandleDecimals()) amount = Math.floor(amount);
+
+        return amount;
     }
 
     @NotNull
@@ -26,10 +39,15 @@ public interface Currency {
 
     @NotNull
     default String format(double amount) {
-        return (this.replacePlaceholders().apply(this.getFormat()
+        String format = this.getFormat();
+        if (Config.isPlaceholderAPIInFormat()) {
+            format = PlaceholderAPI.setPlaceholders(null, format);
+        }
+
+        return this.replacePlaceholders().apply(format
             .replace(Placeholders.GENERIC_AMOUNT, this.formatValue(amount))
             .replace(Placeholders.GENERIC_NAME, this.getName())
-        ));
+        );
     }
 
 
