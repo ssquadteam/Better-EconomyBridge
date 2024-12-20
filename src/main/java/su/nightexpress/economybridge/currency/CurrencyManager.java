@@ -6,6 +6,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import su.nightexpress.economybridge.BridgePlugin;
+import su.nightexpress.economybridge.EconomyBridge;
 import su.nightexpress.economybridge.api.Currency;
 import su.nightexpress.economybridge.currency.impl.*;
 import su.nightexpress.economybridge.currency.listener.CurrencyListener;
@@ -117,10 +118,6 @@ public class CurrencyManager extends AbstractManager<BridgePlugin> {
             UltraEconomyCurrency.getCurrencies().forEach(this::registerCurrency);
         });
 
-        this.pluginProviders.put(CurrencyPlugins.GEMS_ECONOMY, () -> {
-            GemsEconomyCurrency.getCurrencies().forEach(this::loadCurrency);
-        });
-
         // Try load any provider(s) of the plugins that are already enabled aka loaded.
         this.pluginProviders.keySet().forEach(pluginName -> {
             Plugin currencyPlugin = this.plugin.getPluginManager().getPlugin(pluginName);
@@ -158,6 +155,16 @@ public class CurrencyManager extends AbstractManager<BridgePlugin> {
         });
     }
 
+    public void saveCurrency(@NotNull ItemStackCurrency currency) {
+        FileConfig config = this.getItemsConfig();
+
+        String id = currency.getInternalId();
+        String path = "Items." + id;
+
+        config.set(path + ".Value", ItemNbt.getTagString(currency.getItem()));
+        config.save();
+    }
+
     public void loadCurrency(@NotNull String pluginName, @NotNull String id, @NotNull Function<String, AbstractCurrency> function) {
         if (!Plugins.isInstalled(pluginName)) return;
 
@@ -178,6 +185,7 @@ public class CurrencyManager extends AbstractManager<BridgePlugin> {
 
     public void loadCurrency(@NotNull AbstractCurrency currency, @NotNull CurrencySettings settings) {
         String id = currency.getInternalId();
+        if (EconomyBridge.isDisabled(id)) return;
 
         settings.load(this.getCurrenciesConfig(), "Currencies." + id);
         currency.load(settings);
@@ -186,8 +194,11 @@ public class CurrencyManager extends AbstractManager<BridgePlugin> {
     }
 
     public void registerCurrency(@NotNull Currency currency) {
-        this.currencyMap.put(currency.getInternalId(), currency);
-        this.plugin.info("Currency registered: '" + currency.getInternalId() + "'.");
+        String id = currency.getInternalId();
+        if (EconomyBridge.isDisabled(id)) return;
+
+        this.currencyMap.put(id, currency);
+        this.plugin.info("Currency registered: '" + id + "'.");
     }
 
     public boolean hasCurrency() {

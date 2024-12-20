@@ -10,7 +10,6 @@ public class CurrencyId {
     public static final String XP_POINTS = "xp_points";
 
     public static final String COINS_ENGINE_PREFIX  = "coinsengine_";
-    public static final String GEMS_ECONOMY_PREFIX  = "gemseconomy_";
     public static final String ULTRA_ECONOMY_PREFIX = "ultraeconomy_";
 
     public static final String PLAYER_POINTS = "playerpoints";
@@ -27,11 +26,6 @@ public class CurrencyId {
     @NotNull
     public static String forUltraEconomy(@NotNull String id) {
         return ULTRA_ECONOMY_PREFIX + id.toLowerCase();
-    }
-
-    @NotNull
-    public static String forGemsEconomy(@NotNull String id) {
-        return GEMS_ECONOMY_PREFIX + id.toLowerCase();
     }
 
     @NotNull

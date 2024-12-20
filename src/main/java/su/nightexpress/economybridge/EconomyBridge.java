@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import su.nightexpress.economybridge.api.Currency;
+import su.nightexpress.economybridge.config.Config;
 import su.nightexpress.economybridge.currency.CurrencyId;
 import su.nightexpress.economybridge.currency.CurrencyManager;
 import su.nightexpress.economybridge.currency.impl.DummyCurrency;
@@ -104,6 +105,10 @@ public class EconomyBridge {
     }
 
 
+
+    public static boolean isDisabled(@NotNull String id) {
+        return Config.isDisabledCurrency(id);
+    }
 
     public static boolean hasCurrency() {
         return getCurrencyManager().hasCurrency();
