@@ -8,6 +8,7 @@ Currently supports [7 plugins](https://nightexpressdev.com/economy-bridge/curren
 - Hangar *(coming soon)*
 - Modrinth *(coming soon)*
 - [Documentation](https://nightexpressdev.com/economy-bridge/)
+- [Developer API](https://nightexpressdev.com/economy-bridge/developer-api/)
 
 ## Donate
 If you like my work or enjoy using my plugins, feel free to [Buy me a coffee](https://ko-fi.com/nightexpress) :) Thank you! 🧡
