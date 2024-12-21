@@ -8,7 +8,7 @@ Currently supports [7 plugins](https://nightexpressdev.com/economy-bridge/curren
 ### Downloads & Documentation
 - [Github Releases](https://github.com/nulli0n/economy-bridge/releases)
 - [Hangar](https://hangar.papermc.io/NightExpress/EconomyBridge)
-- Modrinth *(coming soon)*
+- [Modrinth](https://modrinth.com/plugin/economybridge)
 - [Documentation](https://nightexpressdev.com/economy-bridge/)
 - [Developer API](https://nightexpressdev.com/economy-bridge/developer-api/)
 
