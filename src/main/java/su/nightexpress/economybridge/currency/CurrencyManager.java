@@ -65,13 +65,14 @@ public class CurrencyManager extends AbstractManager<BridgePlugin> {
         this.loadBuiltInCurrencies();
         this.loadItemCurrencies();
 
-        this.currencyConfig.saveChanges();
-        this.itemsConfig.saveChanges();
-
         this.addListener(new CurrencyListener(this.plugin, this));
 
         // Clean up when all plugins are loaded.
-        this.plugin.runTask(task -> this.pluginProviders.clear());
+        this.plugin.runTask(task -> {
+            this.pluginProviders.clear();
+            this.currencyConfig.saveChanges();
+            this.itemsConfig.saveChanges();
+        });
     }
 
     @Override

@@ -14,6 +14,11 @@ public class Config {
         "List of disabled currencies"
     ).onRead(set -> Lists.modify(set, String::toLowerCase));
 
+    public static final ConfigValue<Set<String>> DISABLED_ITEM_HANDLERS = ConfigValue.create("General.Disabled_ItemHandlers",
+        Lists.newSet("CustomSuperItems", "UltimateItemsPlugin"),
+        "List of disabled custom item plugin handlers."
+    ).onRead(set -> Lists.modify(set, String::toLowerCase));
+
     public static final ConfigValue<Boolean> PLACEHOLDER_API_IN_FORMAT = ConfigValue.create("General.PlaceholderAPI_In_Format",
         true,
         "Sets whether to apply " + Plugins.PLACEHOLDER_API + " placeholders for the currency's 'Format' setting.",

@@ -39,7 +39,21 @@ public interface Currency {
 
     @NotNull
     default String format(double amount) {
-        String format = this.getFormat();
+//        String format = this.getFormat();
+//        if (Config.isPlaceholderAPIInFormat()) {
+//            format = PlaceholderAPI.setPlaceholders(null, format);
+//        }
+//
+//        return this.replacePlaceholders().apply(format
+//            .replace(Placeholders.GENERIC_AMOUNT, this.formatValue(amount))
+//            .replace(Placeholders.GENERIC_NAME, this.getName())
+//        );
+
+        return this.applyFormat(this.getFormat(), amount);
+    }
+
+    @NotNull
+    default String applyFormat(@NotNull String format, double amount) {
         if (Config.isPlaceholderAPIInFormat()) {
             format = PlaceholderAPI.setPlaceholders(null, format);
         }
