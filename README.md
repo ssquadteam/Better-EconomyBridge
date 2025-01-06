@@ -1,5 +1,7 @@
 # About
 <div align="center">
+
+![](https://repo.nightexpressdev.com/api/badge/latest/releases/su/nightexpress/economybridge/economy-bridge?color=40c14a&name=EconomyBridge&prefix=v)
   
 **EconomyBridge** is a simple, lightweight library plugin created to handle multiple various currency plugins with only a few lines of code.
 
