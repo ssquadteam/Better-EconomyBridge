@@ -16,6 +16,10 @@ public class ItemBridge {
         return EconomyBridge.getPlugin().getItemManager();
     }
 
+    public static boolean registerHandler(@NotNull ItemHandler handler) {
+        return getItemManager().register(handler);
+    }
+
     @NotNull
     public static Set<ItemHandler> getHandlers() {
         return getItemManager().getHandlers();

@@ -33,10 +33,6 @@ public class CurrencySettings {
         config.set(path + ".Name", this.getName());
         config.set(path + ".Format", this.getFormat());
         config.setItem(path + ".Icon", this.getIcon());
-
-//        if (this.handler instanceof ItemStackHandler itemHandler) {
-//            itemHandler.write(config, path);
-//        }
     }
 
     @NotNull

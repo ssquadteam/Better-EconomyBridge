@@ -119,6 +119,10 @@ public class EconomyBridge {
         return plugin.getCurrencyManager();
     }
 
+    public static void registerCurrency(@NotNull Currency currency) {
+        getCurrencyManager().registerCurrency(currency);
+    }
+
     @NotNull
     public static Set<Currency> getCurrencies() {
         return getCurrencyManager().getCurrencies();

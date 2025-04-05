@@ -9,11 +9,8 @@ Since **v1.2.0** provides an API to handle custom item plugins as well.
 </div>
 
 # Requirements
-- **Java 21** or higher
+- **Java 21** or higher.
 - [**nightcore**](https://nightexpressdev.com/nightcore)
-
-# Installation
-Follow [this guide](https://nightexpressdev.com/economy-bridge/start/) to install EconomyBridge.
 
 # Integrations
 EconomyBridge provides integration for a lot of modern, well-known plugins. 

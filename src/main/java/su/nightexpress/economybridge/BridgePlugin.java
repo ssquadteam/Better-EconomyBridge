@@ -22,8 +22,7 @@ public class BridgePlugin extends NightPlugin implements ImprovedCommands {
         return PluginDetails.create("EconomyBridge", new String[]{"economybridge", "econbridge", "ebridge"})
             .setConfigClass(Config.class)
             .setLangClass(Lang.class)
-            .setPermissionsClass(Perms.class)
-            ;
+            .setPermissionsClass(Perms.class);
     }
 
     @Override

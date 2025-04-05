@@ -11,7 +11,7 @@ public class Perms {
     public static final UniPermission PLUGIN  = new UniPermission(PREFIX + Placeholders.WILDCARD);
     public static final UniPermission COMMAND = new UniPermission(PREFIX_COMMAND + Placeholders.WILDCARD);
 
-    public static final UniPermission COMMAND_RELOAD = new UniPermission(PREFIX_COMMAND + "reload");
+    public static final UniPermission COMMAND_RELOAD    = new UniPermission(PREFIX_COMMAND + "reload");
     public static final UniPermission COMMAND_FROM_ITEM = new UniPermission(PREFIX_COMMAND + "fromitem");
 
     static {
