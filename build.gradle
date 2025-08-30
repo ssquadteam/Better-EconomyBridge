@@ -1,0 +1,117 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'com.gradleup.shadow' version '9.0.0'
+}
+
+group = 'su.nightexpress.economybridge'
+version = '1.2.2'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    withSourcesJar()
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigot-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+    maven {
+        name = 'nightexpress-releases'
+        url = 'https://repo.nightexpressdev.com/releases'
+    }
+    maven {
+        name = 'jitpack'
+        url = 'https://jitpack.io'
+    }
+    maven {
+        name = 'placeholderapi'
+        url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/'
+    }
+    maven {
+        name = 'codemc-repo'
+        url = 'https://repo.codemc.io/repository/maven-public/'
+    }
+    maven {
+        name = 'codemc-releases'
+        url = 'https://repo.codemc.io/repository/maven-releases/'
+    }
+    maven {
+        name = 'rosewood-repo'
+        url = 'https://repo.rosewooddev.io/repository/public/'
+    }
+    maven {
+        name = 'BenCodez-repo'
+        url = 'https://nexus.bencodez.com/repository/maven-public/'
+    }
+    maven {
+        name = 'techscode'
+        url = 'https://repo.techscode.com/repository/techscode-apis/'
+    }
+    maven {
+        name = 'tcoded-releases'
+        url = 'https://repo.tcoded.com/releases'
+    }
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
+    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
+    compileOnly 'me.clip:placeholderapi:2.11.6'
+    
+    compileOnly 'org.black_ixx:playerpoints:3.2.6'
+    compileOnly 'su.nightexpress.coinsengine:CoinsEngine:2.4.1'
+    compileOnly 'me.TechsCode:UltraEconomyAPI:1.1.2'
+    compileOnly 'com.github.LoneDev6:api-itemsadder:3.6.2-beta-r3-b'
+
+    compileOnly name: 'ExcellentCrates-6.4.0', version: "6.4.0"
+    compileOnly name: 'nightcore-2.7.16', version: "2.17.6"
+
+    compileOnlyApi 'io.lumine.mythic.lib:MythicLib:1.6.2-SNAPSHOT' // optional
+    compileOnlyApi 'com.ssomar.score:SCore:5.24.12.29' // optional
+    compileOnlyApi 'net.Indyuce:MMOItems-API:6.9.5-SNAPSHOT' // optional
+    compileOnlyApi 'me.mraxetv.beasttokens:BeastTokens:3.11.1' // optional
+    compileOnlyApi 'com.bencodez:votingplugin:6.15.1' // optional
+    compileOnlyApi 'com.magmaguy.elitemobs:EliteMobs:8.5.4' // optional
+    compileOnlyApi 'io.th0rgal.oraxen:Oraxen:1.155.1' // optional
+    compileOnlyApi 'com.nexomc.nexo:Nexo:0.9-dev' // optional
+
+    implementation 'com.tcoded:FoliaLib:0.5.1'
+}
+
+processResources {
+    filteringCharset = 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand(project.properties)
+    }
+}
+
+shadowJar {
+    archiveClassifier = ''
+    
+    relocate 'com.tcoded.folialib', 'su.nightexpress.economybridge.lib.folialib'
+}
+
+build {
+    dependsOn shadowJar
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = 'nightexpress'
+            url = 'https://repo.nightexpressdev.com/releases'
+        }
+    }
+}

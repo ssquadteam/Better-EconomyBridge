@@ -68,7 +68,7 @@ public class CurrencyManager extends AbstractManager<BridgePlugin> {
         this.addListener(new CurrencyListener(this.plugin, this));
 
         // Clean up when all plugins are loaded.
-        this.plugin.runTask(task -> {
+        this.plugin.getFoliaLib().getScheduler().runNextTick(() -> {
             this.pluginProviders.clear();
             this.currencyConfig.saveChanges();
             this.itemsConfig.saveChanges();

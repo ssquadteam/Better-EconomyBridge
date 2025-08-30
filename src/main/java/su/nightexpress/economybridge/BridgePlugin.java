@@ -1,5 +1,6 @@
 package su.nightexpress.economybridge;
 
+import com.tcoded.folialib.FoliaLib;
 import org.jetbrains.annotations.NotNull;
 import su.nightexpress.economybridge.command.BaseCommands;
 import su.nightexpress.economybridge.config.Config;
@@ -13,6 +14,7 @@ import su.nightexpress.nightcore.config.PluginDetails;
 
 public class BridgePlugin extends NightPlugin implements ImprovedCommands {
 
+    private FoliaLib foliaLib;
     private ItemManager itemManager;
     private CurrencyManager currencyManager;
 
@@ -27,6 +29,8 @@ public class BridgePlugin extends NightPlugin implements ImprovedCommands {
 
     @Override
     public void enable() {
+        this.foliaLib = new FoliaLib(this);
+        
         EconomyBridge.load(this);
         BaseCommands.load(this);
 
@@ -42,7 +46,16 @@ public class BridgePlugin extends NightPlugin implements ImprovedCommands {
         if (this.currencyManager != null) this.currencyManager.shutdown();
         if (this.itemManager != null) this.itemManager.shutdown();
 
+        if (this.foliaLib != null) {
+            this.foliaLib.getScheduler().cancelAllTasks();
+        }
+
         EconomyBridge.unload();
+    }
+
+    @NotNull
+    public FoliaLib getFoliaLib() {
+        return this.foliaLib;
     }
 
     @NotNull

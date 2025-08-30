@@ -7,3 +7,4 @@ depend:
   - nightcore
 load: STARTUP
 api-version: 1.19
+folia-supported: true
