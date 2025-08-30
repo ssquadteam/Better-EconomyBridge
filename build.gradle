@@ -20,6 +20,10 @@ repositories {
         url = 'https://repo.papermc.io/repository/maven-public/'
     }
     maven {
+        name = 'nightexpress'
+        url = 'https://repo.nightexpressdev.com/releases'
+    }
+    maven {
         name = 'phoenix'
         url = 'https://nexus.phoenixdevt.fr/repository/maven-public'
     }
@@ -74,11 +78,13 @@ repositories {
 
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
-    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
+    compileOnly('com.github.MilkBowl:VaultAPI:1.7') {
+        exclude group: 'org.bukkit', module: 'bukkit'
+    }
     compileOnly 'me.clip:placeholderapi:2.11.6'
     
     compileOnly 'org.black_ixx:playerpoints:3.2.6'
-    compileOnly 'su.nightexpress.coinsengine:CoinsEngine:2.4.1'
+    compileOnly 'su.nightexpress.coinsengine:CoinsEngine:2.5.0'
     compileOnly 'me.TechsCode:UltraEconomyAPI:1.1.2'
     compileOnly 'com.github.LoneDev6:api-itemsadder:3.6.2-beta-r3-b'
 
