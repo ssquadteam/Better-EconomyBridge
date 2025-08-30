@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'maven-publish'
     id 'com.gradleup.shadow' version '9.0.0'
 }
@@ -16,12 +16,12 @@ java {
 repositories {
     mavenCentral()
     maven {
-        name = 'spigot-repo'
-        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+        name = 'papermc'
+        url = 'https://repo.papermc.io/repository/maven-public/'
     }
     maven {
-        name = 'nightexpress-releases'
-        url = 'https://repo.nightexpressdev.com/releases'
+        name = 'phoenix'
+        url = 'https://nexus.phoenixdevt.fr/repository/maven-public'
     }
     maven {
         name = 'jitpack'
@@ -55,6 +55,18 @@ repositories {
         name = 'tcoded-releases'
         url = 'https://repo.tcoded.com/releases'
     }
+    maven {
+        name = 'MagmaGuy'
+        url = 'https://repo.magmaguy.com/releases'
+    }
+    maven {
+        name = 'Oraxen'
+        url = 'https://repo.oraxen.com/releases'
+    }
+    maven {
+        name = 'Nexo'
+        url = 'https://repo.nexomc.com/releases'
+    }
     flatDir {
         dirs 'libs'
     }
@@ -72,15 +84,15 @@ dependencies {
 
     compileOnly name: 'ExcellentCrates-6.4.0', version: "6.4.0"
     compileOnly name: 'nightcore-2.7.16', version: "2.17.6"
+    compileOnlyApi name: 'SCore-5.25.8.27', version: "5.25.8.27"
+    compileOnlyApi name: 'bt-api-3.14.6', version: "3.14.6"
 
-    compileOnlyApi 'io.lumine.mythic.lib:MythicLib:1.6.2-SNAPSHOT' // optional
-    compileOnlyApi 'com.ssomar.score:SCore:5.24.12.29' // optional
-    compileOnlyApi 'net.Indyuce:MMOItems-API:6.9.5-SNAPSHOT' // optional
-    compileOnlyApi 'me.mraxetv.beasttokens:BeastTokens:3.11.1' // optional
-    compileOnlyApi 'com.bencodez:votingplugin:6.15.1' // optional
-    compileOnlyApi 'com.magmaguy.elitemobs:EliteMobs:8.5.4' // optional
-    compileOnlyApi 'io.th0rgal.oraxen:Oraxen:1.155.1' // optional
-    compileOnlyApi 'com.nexomc.nexo:Nexo:0.9-dev' // optional
+    compileOnlyApi 'io.lumine:MythicLib-dist:1.7.1-SNAPSHOT'
+    compileOnlyApi 'net.Indyuce:MMOItems-API:6.9.5-SNAPSHOT'
+    compileOnlyApi 'com.bencodez:votingplugin:6.19'
+    compileOnlyApi 'com.magmaguy:EliteMobs:9.5.3'
+    compileOnlyApi 'io.th0rgal:oraxen:1.192.1'
+    compileOnlyApi 'com.nexomc:nexo:1.10.0'
 
     implementation 'com.tcoded:FoliaLib:0.5.1'
 }
