@@ -50,14 +50,14 @@ public class VotingCurrency extends AbstractCurrency {
 
     @Override
     public void give(@NotNull Player player, double amount) {
-        EconomyBridge.getPlugin().getFoliaLib().getScheduler().runAsync(() -> {
+        EconomyBridge.getPlugin().runTaskAsync(() -> {
             VotingPluginHooks.getInstance().getUserManager().getVotingPluginUser(player).addPoints((int) amount);
         });
     }
 
     @Override
     public void give(@NotNull UUID playerId, double amount) {
-        EconomyBridge.getPlugin().getFoliaLib().getScheduler().runAsync(() -> {
+        EconomyBridge.getPlugin().runTaskAsync(() -> {
             VotingPluginHooks.getInstance().getUserManager().getVotingPluginUser(playerId).addPoints((int) amount);
         });
     }

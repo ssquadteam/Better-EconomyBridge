@@ -56,10 +56,6 @@ repositories {
         url = 'https://repo.techscode.com/repository/techscode-apis/'
     }
     maven {
-        name = 'tcoded-releases'
-        url = 'https://repo.tcoded.com/releases'
-    }
-    maven {
         name = 'MagmaGuy'
         url = 'https://repo.magmaguy.com/releases'
     }
@@ -100,7 +96,7 @@ dependencies {
     compileOnlyApi 'io.th0rgal:oraxen:1.192.1'
     compileOnlyApi 'com.nexomc:nexo:1.10.0'
 
-    implementation 'com.tcoded:FoliaLib:0.5.1'
+
 }
 
 processResources {
@@ -112,8 +108,6 @@ processResources {
 
 shadowJar {
     archiveClassifier = ''
-    
-    relocate 'com.tcoded.folialib', 'su.nightexpress.economybridge.lib.folialib'
 }
 
 build {
