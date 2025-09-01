@@ -74,9 +74,6 @@ repositories {
 
 dependencies {
     compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
-    compileOnly('com.github.MilkBowl:VaultAPI:1.7') {
-        exclude group: 'org.bukkit', module: 'bukkit'
-    }
     compileOnly 'me.clip:placeholderapi:2.11.6'
     
     compileOnly 'org.black_ixx:playerpoints:3.2.6'
@@ -86,6 +83,7 @@ dependencies {
 
     compileOnly name: 'ExcellentCrates-6.4.0', version: "6.4.0"
     compileOnly name: 'nightcore-2.7.16', version: "2.17.6"
+    compileOnly name: 'VaultUnlockedAPI-2.15'
     compileOnlyApi name: 'SCore-5.25.8.27', version: "5.25.8.27"
     compileOnlyApi name: 'bt-api-3.14.6', version: "3.14.6"
 
