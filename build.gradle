@@ -82,7 +82,7 @@ dependencies {
     compileOnly 'com.github.LoneDev6:api-itemsadder:3.6.2-beta-r3-b'
 
     compileOnly name: 'ExcellentCrates-6.4.0', version: "6.4.0"
-    compileOnly name: 'nightcore-2.7.16', version: "2.17.6"
+    compileOnly name: 'nightcore-2.7.18', version: "2.7.18"
     compileOnly name: 'VaultUnlockedAPI-2.15'
     compileOnlyApi name: 'SCore-5.25.8.27', version: "5.25.8.27"
     compileOnlyApi name: 'bt-api-3.14.6', version: "3.14.6"
